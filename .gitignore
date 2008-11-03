@@ -3,7 +3,5 @@
 .phpunit*
 .buildpath
 .project
-
-
-
-
+composer.lock
+composer.phar
