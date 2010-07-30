@@ -217,3 +217,5 @@ class fpdfprotection extends fpdf
         $this->Pvalue = -(($protection^255)+1);
     }
 }
+
+

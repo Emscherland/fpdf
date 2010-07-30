@@ -64,6 +64,8 @@ var $subject;            //subject
 var $author;             //author
 var $keywords;           //keywords
 var $creator;            //creator
+var $producer='FPDF '.FPDF_VERSION;
+
 var $AliasNbPages;       //alias for total number of pages
 var $PDFVersion;         //PDF version number
 
@@ -257,6 +259,14 @@ function SetCreator($creator, $isUTF8=false)
 	if($isUTF8)
 		$creator=$this->_UTF8toUTF16($creator);
 	$this->creator=$creator;
+}
+
+function SetProducer($producer, $isUTF8=false)
+{
+	//Creator of document
+	if($isUTF8)
+		$producer=$this->_UTF8toUTF16($producer);
+	$this->producer=$producer;
 }
 
 function AliasNbPages($alias='{nb}')
@@ -1639,7 +1649,10 @@ function _putresources()
 
 function _putinfo()
 {
-	$this->_out('/Producer '.$this->_textstring('FPDF '.FPDF_VERSION));
+
+	if(!empty($this->producer))
+		$this->_out('/Producer '.$this->_textstring($this->producer));
+
 	if(!empty($this->title))
 		$this->_out('/Title '.$this->_textstring($this->title));
 	if(!empty($this->subject))
@@ -1729,4 +1742,4 @@ if(isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT']=='contype')
 	exit;
 }
 
-?>
+
