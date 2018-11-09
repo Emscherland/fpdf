@@ -55,7 +55,7 @@ class fpdf {
 	var $AutoPageBreak; //automatic page breaking
 	var $PageBreakTrigger; //threshold used to trigger page breaks
 	var $InHeader; //flag set when processing header
-	var $InFooter; //flag set when processing footer
+	public $InFooter; //flag set when processing footer
 	var $ZoomMode; //zoom display mode
 	var $LayoutMode; //layout display mode
 	var $title; //title
@@ -63,7 +63,7 @@ class fpdf {
 	var $author; //author
 	var $keywords; //keywords
 	var $creator; //creator
-	var $producer = 'FPDF '.FPDF_VERSION;
+	var $producer = 'emscherland/fpdf composer package';
 	
 
 	var $AliasNbPages; //alias for total number of pages
@@ -75,7 +75,7 @@ class fpdf {
 	 * Public methods                                 *
 	 * *
 	 *******************************************************************************/
-	function fpdf($orientation = 'P', $unit = 'mm', $format = 'A4') {
+	function __construct($orientation = 'P', $unit = 'mm', $format = 'A4') {
 		//Some checks
 		$this->_dochecks ();
 		//Initialization of properties

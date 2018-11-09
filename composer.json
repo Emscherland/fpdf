@@ -2,10 +2,13 @@
   "name": "emscherland/fpdf",
   "type": "library",
   "description": "A wrapper/clone for the fpdf-Library for use with composer with some enhacements",
-  "keywords": ["pdf", "fpdf"],
+  "keywords": [
+    "pdf",
+    "fpdf"
+  ],
   "license": "MIT",
   "require": {
-    "php": ">=5.3.0"
+    "php": ">=7.0.0"
   },
   "autoload": {
     "classmap": [

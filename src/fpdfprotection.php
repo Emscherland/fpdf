@@ -26,8 +26,8 @@ class fpdfprotection extends fpdf {
 	var $last_rc4_key_c; //last RC4 computed key
 	
 
-	function fpdfprotection($orientation = 'P', $unit = 'mm', $format = 'A4') {
-		parent::fpdf ( $orientation, $unit, $format );
+	function __construct($orientation = 'P', $unit = 'mm', $format = 'A4') {
+		parent::__construct ( $orientation, $unit, $format );
 		
 		$this->encrypted = false;
 		$this->last_rc4_key = '';
