@@ -1478,7 +1478,7 @@ class fpdf
         reset($this->images);
         if (!empty($this->images))
             foreach ($this->images AS $file => $info) {
-                // while (list ($file, $info) = each($this->images)) {    // replaced with foreach
+                // while (list ($file, $info) = each($this->images)) {     // replaced with foreach
                 $this->_newobj();
                 $this->images [$file] ['n'] = $this->n;
                 $this->_out('<</Type /XObject');
