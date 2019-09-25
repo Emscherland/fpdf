@@ -11,7 +11,7 @@
   ```
   
   
-## Usage (fpdf without encryption)
+## Usage (fpdf without protection)
 
 In your php file where you want to use the class: 
 ``` php
@@ -19,7 +19,7 @@ $pdf = new fpdf();
 ```
 For the usage please look at the FPDF documentation.
 
-## Usage (fpdf with encryption)
+## Usage (fpdf with protection)
 
 In your php file where you want to use the class: 
 ``` php
