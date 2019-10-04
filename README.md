@@ -15,7 +15,7 @@
 
 In your php file where you want to use the class: 
 ``` php
-$pdf = new fpdf();
+$pdf = new Fpdf();
 ```
 For the usage please look at the FPDF documentation.
 
@@ -23,7 +23,7 @@ For the usage please look at the FPDF documentation.
 
 In your php file where you want to use the class: 
 ``` php
-$pdf = new fpdfprotection();
+$pdf = new FpdfProtection();
 ```
 For the usage please look at the FPDF documentation.
 

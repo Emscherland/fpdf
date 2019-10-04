@@ -1,7 +1,7 @@
 {
   "name": "emscherland/fpdf",
   "type": "library",
-  "description": "A wrapper/clone for the fpdf-Library for use with composer with some enhacements",
+  "description": "A wrapper/clone for the fpdf-Library for use with composer with some enhancements",
   "keywords": [
     "pdf",
     "fpdf"

@@ -13,10 +13,8 @@
  * implement protection in pdf.                                              *
  ****************************************************************************/
 
-// require('fpdf.php');
 
-
-class fpdfprotection extends fpdf
+class FpdfProtection extends Fpdf
 {
     var $encrypted; //whether document is protected
     var $Uvalue; //U entry in pdf document
