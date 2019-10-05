@@ -1039,7 +1039,7 @@ class Fpdf
     function _getfontpath()
     {
         if (!defined('FPDF_FONTPATH'))
-            define('FPDF_FONTPATH', __DIR__ .'/../fonts/');
+            define('FPDF_FONTPATH', __DIR__ .'/../font/');
         return FPDF_FONTPATH;
     }
 
