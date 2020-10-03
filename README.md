@@ -1,4 +1,8 @@
 [![Build Status](https://travis-ci.org/Emscherland/fpdf.png)](https://travis-ci.org/Emscherland/fpdf)
+[![Pipeline Status](https://gitlab.com/Emscherland/fpdf/badges/master/pipeline.svg)](https://gitlab.com/Emscherland/fpdf/-/commits/master)
+[![Latest Stable Version](https://poser.pugx.org/emscherland/fpdf/v)](https://packagist.org/packages/emscherland/fpdf)
+[![License](https://poser.pugx.org/emscherland/fpdf/license)](https://packagist.org/packages/emscherland/fpdf)
+[![PHP Version Require](https://poser.pugx.org/emscherland/fpdf/require/php)](https://packagist.org/packages/emscherland/fpdf)
 
 # FPDF
   
