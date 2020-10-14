@@ -72,6 +72,7 @@ class Fpdf
     var $PDFVersion; //PDF version number
 
     private $CreationDate;
+    private $fpdf_charwidths = array();
 
     /*******************************************************************************
      * *
@@ -514,7 +515,6 @@ class Fpdf
     function SetFont($family, $style = '', $size = 0)
     {
         //Select a font; size given in points
-        global $fpdf_charwidths;
 
         $family = strtolower($family);
         if ($family == '')
@@ -543,7 +543,7 @@ class Fpdf
         if (!isset ($this->fonts [$fontkey])) {
             //Check if one of the standard fonts
             if (isset ($this->CoreFonts [$fontkey])) {
-                if (!isset ($fpdf_charwidths [$fontkey])) {
+                if (!isset ($this->fpdf_charwidths [$fontkey])) {
                     //Load metric file
                     $file = $family;
                     if ($family == 'times' || $family == 'helvetica')
@@ -555,10 +555,13 @@ class Fpdf
                     include($FontMetricFileName);
                     if (!isset ($cw))
                         $this->Error('$cw not set in font metric file ' . $FontMetricFileName . "\n");
+                    $this->fpdf_charwidths [$fontkey] = $cw;
+                } else {
+                    $cw = $this->fpdf_charwidths [$fontkey];
                 }
+
                 $i = count($this->fonts) + 1;
                 $name = $this->CoreFonts [$fontkey];
-                $cw = $fpdf_charwidths [$fontkey];
                 $this->fonts [$fontkey] = array('i' => $i, 'type' => 'core', 'name' => $name, 'up' => -100, 'ut' => 50, 'cw' => $cw);
             } else
                 $this->Error('Undefined font: ' . $family . ' ' . $style);
