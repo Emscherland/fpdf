@@ -285,7 +285,8 @@ class Fpdf
     function Error($msg)
     {
         //Fatal error
-        die('<b>FPDF error:</b> ' . $msg);
+        echo '<b>FPDF error:</b> ' . $msg;
+        exit(0);
     }
 
     function Open()
@@ -486,8 +487,23 @@ class Fpdf
         include($this->_getfontpath() . $file);
         if (!isset ($name))
             $this->Error('$name not set in font definition file' . $FontFileName . "\n");
+        if (!isset ($type))
+            $this->Error('$type not set in font definition file' . $FontFileName . "\n");
+        if (!isset ($desc))
+            $this->Error('$desc not set in font definition file' . $FontFileName . "\n");
+        if (!isset ($up))
+            $this->Error('$up not set in font definition file' . $FontFileName . "\n");
+        if (!isset ($ut))
+            $this->Error('$ut not set in font definition file' . $FontFileName . "\n");
+        if (!isset ($cw))
+            $this->Error('$cw not set in font definition file' . $FontFileName . "\n");
+        if (!isset ($enc))
+            $this->Error('$enc not set in font definition file' . $FontFileName . "\n");
+
         $i = count($this->fonts) + 1;
         $this->fonts [$fontkey] = array('i' => $i, 'type' => $type, 'name' => $name, 'desc' => $desc, 'up' => $up, 'ut' => $ut, 'cw' => $cw, 'enc' => $enc, 'file' => $file);
+        // TODO check and uncomment
+        /*
         if ($diff) {
             //Search existing encodings
             $d = 0;
@@ -504,12 +520,18 @@ class Fpdf
             }
             $this->fonts [$fontkey] ['diff'] = $d;
         }
+        */
+
+        // TODO check and uncomment
+        $this->FontFiles [$file] = array('length1' => 0);
+        /*
         if ($file) {
             if ($type == 'TrueType')
                 $this->FontFiles [$file] = array('length1' => $originalsize);
             else
                 $this->FontFiles [$file] = array('length1' => $size1, 'length2' => $size2);
         }
+        */
     }
 
     function SetFont($family, $style = '', $size = 0)
