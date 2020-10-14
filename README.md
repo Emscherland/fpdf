@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Emscherland/fpdf.png)](https://travis-ci.org/Emscherland/fpdf)
+
 # FPDF
   
   This repository is a wrapper (with small enhancements) around the popular FPDF library.
