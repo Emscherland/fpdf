@@ -273,7 +273,7 @@ class Fpdf
     function Error($msg)
     {
         //Fatal error
-        ins_die('<b>FPDF error:</b> ' . $msg);
+        die('<b>FPDF error:</b> ' . $msg);
     }
 
     function Open()
@@ -468,9 +468,12 @@ class Fpdf
         $fontkey = $family . $style;
         if (isset ($this->fonts [$fontkey]))
             return;
+        $FontFileName = $this->_getfontpath() . $file;
+        if (!file_exists($FontFileName))
+            $this->Error('font definition file' . $FontFileName . " does not exist.\n");
         include($this->_getfontpath() . $file);
         if (!isset ($name))
-            $this->Error('Could not include font definition file');
+            $this->Error('$name not set in font definition file' . $FontFileName . "\n");
         $i = count($this->fonts) + 1;
         $this->fonts [$fontkey] = array('i' => $i, 'type' => $type, 'name' => $name, 'desc' => $desc, 'up' => $up, 'ut' => $ut, 'cw' => $cw, 'enc' => $enc, 'file' => $file);
         if ($diff) {
@@ -534,9 +537,13 @@ class Fpdf
                     $file = $family;
                     if ($family == 'times' || $family == 'helvetica')
                         $file .= strtolower($style);
-                    include($this->_getfontpath() . $file . '.php');
-                    if (!isset ($fpdf_charwidths [$fontkey]))
-                        $this->Error('Could not include font metric file');
+                    $FontMetricFileName = $this->_getfontpath() . $file . '.php';
+                    if (!file_exists($FontMetricFileName))
+                        $this->Error('font metric file' . $FontMetricFileName . " does not exist.\n");
+                    unset($cw);
+                    include($FontMetricFileName);
+                    if (!isset ($cw))
+                        $this->Error('$cw not set in font metric file '.$FontMetricFileName."\n");
                 }
                 $i = count($this->fonts) + 1;
                 $name = $this->CoreFonts [$fontkey];
@@ -1039,7 +1046,7 @@ class Fpdf
     function _getfontpath()
     {
         if (!defined('FPDF_FONTPATH'))
-            define('FPDF_FONTPATH', __DIR__ .'/../font/');
+            define('FPDF_FONTPATH', __DIR__ . '/../font/');
         return FPDF_FONTPATH;
     }
 
@@ -1477,7 +1484,7 @@ class Fpdf
         $filter = ($this->compress) ? '/Filter /FlateDecode ' : '';
         reset($this->images);
         if (!empty($this->images))
-            foreach ($this->images AS $file => $info) {
+            foreach ($this->images as $file => $info) {
                 // while (list ($file, $info) = each($this->images)) {     // replaced with foreach
                 $this->_newobj();
                 $this->images [$file] ['n'] = $this->n;
