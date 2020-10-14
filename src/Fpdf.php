@@ -4,9 +4,10 @@
  * *
  * Version: 1.6                                                                 *
  * Date:    2008-08-03                                                          *
- * Author:  Olivier PLATHEY                                                     *
+ * Original Author:  Olivier PLATHEY                                            *
  *******************************************************************************/
 
+namespace Emscherland\Fpdf;
 
 define('FPDF_VERSION', '1.6');
 
@@ -71,15 +72,15 @@ class Fpdf
     var $AliasNbPages; //alias for total number of pages
     var $PDFVersion; //PDF version number
 
-    private $CreationDate;
-    private $fpdf_charwidths = array();
+    private string $CreationDate = '';
+    private array $fpdf_charwidths = array();
 
     /*******************************************************************************
      * *
      * Public methods                                 *
      * *
      *******************************************************************************/
-    function __construct($orientation = 'P', $unit = 'mm', $format = 'A4')
+    public function __construct($orientation = 'P', $unit = 'mm', $format = 'A4')
     {
         //Some checks
         $this->_dochecks();
@@ -577,7 +578,8 @@ class Fpdf
                     include($FontMetricFileName);
                     if (!isset ($cw))
                         $this->Error('$cw not set in font metric file ' . $FontMetricFileName . "\n");
-                    $this->fpdf_charwidths [$fontkey] = $cw;
+                    else
+                        $this->fpdf_charwidths [$fontkey] = $cw;
                 } else {
                     $cw = $this->fpdf_charwidths [$fontkey];
                 }
@@ -733,6 +735,7 @@ class Fpdf
         if ($nb > 0 && $s [$nb - 1] == "\n")
             $nb--;
         $b = 0;
+        $b2 = '';
         if ($border) {
             if ($border == 1) {
                 $border = 'LTRB';
@@ -1226,6 +1229,7 @@ class Fpdf
         if ($bpc > 8)
             $this->Error('16-bit depth not supported: ' . $file);
         $ct = ord($this->_readstream($f, 1));
+        $colspace = '';
         if ($ct == 0)
             $colspace = 'DeviceGray';
         elseif ($ct == 2)

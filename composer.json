@@ -16,13 +16,13 @@
     "phpunit/phpunit": "^9"
   },
   "autoload": {
-    "classmap": [
-      "src/"
-    ]
+    "psr-4": {
+      "Emscherland\\Fpdf\\": "src"
+    }
   },
   "autoload-dev": {
     "classmap": [
-      "tests/"
+      "tests"
     ]
   }
 }

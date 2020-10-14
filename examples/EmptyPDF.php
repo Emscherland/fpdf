@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$pdf = new Fpdf('P', 'mm', 'A4');
+$pdf = new \Emscherland\Fpdf\Fpdf('P', 'mm', 'A4');
 
 // no need to set this in normal use
 $pdf->SetCreationDate('202010140000');    // else php unit test for reference file fails

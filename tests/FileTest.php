@@ -6,7 +6,7 @@ class FileTest extends TestCase
 {
     public function testFileIsCreatedAndIdentical()
     {
-        $pdf = new Fpdf('P', 'mm', 'A4');
+        $pdf = new \Emscherland\Fpdf\Fpdf('P', 'mm', 'A4');
         $pdf->SetCreationDate('202010140000');    // else php unit test for reference file fails
 
         $pdf->SetTitle('Sample PDF');

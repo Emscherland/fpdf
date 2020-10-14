@@ -13,10 +13,11 @@
  * implement protection in pdf.                                              *
  ****************************************************************************/
 
+namespace Emscherland\Fpdf;
 
 class FpdfProtection extends Fpdf
 {
-    var $encrypted; //whether document is protected
+    protected bool $encrypted = false; //whether document is protected
     var $Uvalue; //U entry in pdf document
     var $Ovalue; //O entry in pdf document
     var $Pvalue; //P entry in pdf document
@@ -24,6 +25,8 @@ class FpdfProtection extends Fpdf
     var $last_rc4_key; //last RC4 key encrypted (cached for optimisation)
     var $last_rc4_key_c; //last RC4 computed key
 
+    protected string $encryption_key = '';
+    protected string $padding = '';
 
     function __construct($orientation = 'P', $unit = 'mm', $format = 'A4')
     {
@@ -144,7 +147,7 @@ class FpdfProtection extends Fpdf
             $j = 0;
             for ($i = 0; $i < 256; $i++) {
                 $t = $rc4 [$i];
-                $j = ($j + $t + ord($k{$i})) % 256;
+                $j = ($j + $t + ord($k[$i])) % 256;
                 $rc4 [$i] = $rc4 [$j];
                 $rc4 [$j] = $t;
             }
@@ -165,7 +168,7 @@ class FpdfProtection extends Fpdf
             $rc4 [$a] = $rc4 [$b];
             $rc4 [$b] = $t;
             $k = $rc4 [($rc4 [$a] + $rc4 [$b]) % 256];
-            $out .= chr(ord($text{$i}) ^ $k);
+            $out .= chr(ord($text[$i]) ^ $k);
         }
 
         return $out;
