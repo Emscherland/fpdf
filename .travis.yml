@@ -1,0 +1,13 @@
+language: php
+
+php:
+  - 7.4
+  - nightly
+
+before_script:
+  - wget http://getcomposer.org/composer.phar
+  - php composer.phar install --dev
+
+notifications:
+  email:
+    - beahub@emscherland.de

@@ -7,6 +7,7 @@
  * Author:  Olivier PLATHEY                                                     *
  *******************************************************************************/
 
+
 define('FPDF_VERSION', '1.6');
 
 class Fpdf
@@ -70,6 +71,7 @@ class Fpdf
     var $AliasNbPages; //alias for total number of pages
     var $PDFVersion; //PDF version number
 
+    private $CreationDate;
 
     /*******************************************************************************
      * *
@@ -154,6 +156,15 @@ class Fpdf
         $this->SetCompression(true);
         //Set default PDF version number
         $this->PDFVersion = '1.3';
+
+        $this->CreationDate = @date('YmdHis');
+
+
+    }
+
+    public function SetCreationDate(string $DateString)
+    {
+        $this->CreationDate = $DateString;
     }
 
     function SetMargins($left, $top, $right = null)
@@ -543,7 +554,7 @@ class Fpdf
                     unset($cw);
                     include($FontMetricFileName);
                     if (!isset ($cw))
-                        $this->Error('$cw not set in font metric file '.$FontMetricFileName."\n");
+                        $this->Error('$cw not set in font metric file ' . $FontMetricFileName . "\n");
                 }
                 $i = count($this->fonts) + 1;
                 $name = $this->CoreFonts [$fontkey];
@@ -1574,7 +1585,7 @@ class Fpdf
             $this->_out('/Keywords ' . $this->_textstring($this->keywords));
         if (!empty ($this->creator))
             $this->_out('/Creator ' . $this->_textstring($this->creator));
-        $this->_out('/CreationDate ' . $this->_textstring('D:' . @date('YmdHis')));
+        $this->_out('/CreationDate ' . $this->_textstring('D:' . $this->CreationDate));
     }
 
     function _putcatalog()
@@ -1647,11 +1658,4 @@ class Fpdf
 
     //End of class
 }
-
-//Handle special IE contype request
-if (isset ($_SERVER ['HTTP_USER_AGENT']) && $_SERVER ['HTTP_USER_AGENT'] == 'contype') {
-    header('Content-Type: application/pdf');
-    exit ();
-}
-
 

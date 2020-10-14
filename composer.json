@@ -16,10 +16,11 @@
   "autoload": {
     "classmap": [
       "src/"
-    ],
-    "psr-0": {
-      "fpdf\\tests": "tests/"
-    }
+    ]
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/"
+    ]
   }
 }
-
