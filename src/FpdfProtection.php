@@ -18,17 +18,23 @@ namespace Emscherland\Fpdf;
 class FpdfProtection extends Fpdf
 {
     protected bool $encrypted = false; //whether document is protected
-    var $Uvalue; //U entry in pdf document
-    var $Ovalue; //O entry in pdf document
-    var $Pvalue; //P entry in pdf document
-    var $enc_obj_id; //encryption object id
-    var $last_rc4_key; //last RC4 key encrypted (cached for optimisation)
-    var $last_rc4_key_c; //last RC4 computed key
+    protected string $Uvalue; //U entry in pdf document
+    protected string $Ovalue; //O entry in pdf document
+    protected string $Pvalue; //P entry in pdf document
+    protected int $enc_obj_id; //encryption object id
+    protected string $last_rc4_key; //last RC4 key encrypted (cached for optimisation)
+    protected array $last_rc4_key_c; //last RC4 computed key
 
     protected string $encryption_key = '';
     protected string $padding = '';
 
-    function __construct($orientation = 'P', $unit = 'mm', $format = 'A4')
+    /**
+     * FpdfProtection constructor.
+     * @param string $orientation
+     * @param string $unit
+     * @param string $format
+     */
+    public function __construct(string $orientation = 'P', string $unit = 'mm', string $format = 'A4')
     {
         parent::__construct($orientation, $unit, $format);
 
@@ -46,8 +52,11 @@ class FpdfProtection extends Fpdf
      * - If a user password is set, user will be prompted before document is opened
      * - If an owner password is set, document can be opened in privilege mode with no
      * restriction if that password is entered
+     * @param array $permissions
+     * @param string $user_pass
+     * @param string|null $owner_pass
      */
-    function SetProtection($permissions = array(), $user_pass = '', $owner_pass = null)
+    public function SetProtection(array $permissions = array(), string $user_pass = '', ?string $owner_pass = null)
     {
         $options = array('print' => 4, 'modify' => 8, 'copy' => 16, 'annot-forms' => 32);
         $protection = 192;
@@ -76,7 +85,7 @@ class FpdfProtection extends Fpdf
         parent::_putstream($s);
     }
 
-    function _textstring($s)
+    function _textstring(string $s): string
     {
         if ($this->encrypted) {
             $s = $this->_RC4($this->_objectkey($this->n), $s);
@@ -87,15 +96,17 @@ class FpdfProtection extends Fpdf
     /**
      * Compute key depending on object number where the encrypted data is stored
      */
-    function _objectkey($n)
+    function _objectkey($n): string
     {
         return substr($this->_md5_16($this->encryption_key . pack('VXxx', $n)), 0, 10);
     }
 
     /**
      * Escape special characters
+     * @param string $s
+     * @return string
      */
-    function _escape($s)
+    function _escape(string $s): string
     {
         $s = str_replace('\\', '\\\\', $s);
         $s = str_replace(')', '\\)', $s);
@@ -138,8 +149,11 @@ class FpdfProtection extends Fpdf
 
     /**
      * RC4 is the standard encryption algorithm used in PDF format
+     * @param string $key
+     * @param string $text
+     * @return string
      */
-    function _RC4($key, $text)
+    function _RC4(string $key, string $text): string
     {
         if ($this->last_rc4_key != $key) {
             $k = str_repeat($key, 256 / strlen($key) + 1);
@@ -195,7 +209,7 @@ class FpdfProtection extends Fpdf
     /**
      * Compute U value
      */
-    function _Uvalue()
+    function _Uvalue(): string
     {
         return $this->_RC4($this->encryption_key, $this->padding);
     }

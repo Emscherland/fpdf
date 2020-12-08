@@ -66,7 +66,7 @@ class Fpdf
     var $author; //author
     var $keywords; //keywords
     var $creator; //creator
-    var $producer = 'emscherland/fpdf composer package';
+    var string $producer = 'emscherland/fpdf composer package';
 
 
     var $AliasNbPages; //alias for total number of pages
@@ -75,12 +75,13 @@ class Fpdf
     private string $CreationDate = '';
     private array $fpdf_charwidths = array();
 
-    /*******************************************************************************
-     * *
-     * Public methods                                 *
-     * *
-     *******************************************************************************/
-    public function __construct($orientation = 'P', $unit = 'mm', $format = 'A4')
+    /**
+     * @param string $orientation
+     * @param string $unit
+     * @param string $format
+     */
+
+    public function __construct(string $orientation = 'P', string $unit = 'mm', string $format = 'A4')
     {
         //Some checks
         $this->_dochecks();
@@ -164,9 +165,9 @@ class Fpdf
 
     }
 
-    public function SetCreationDate(string $DateString)
+    public function SetCreationDate(string $CreationDate)
     {
-        $this->CreationDate = $DateString;
+        $this->CreationDate = $CreationDate;
     }
 
     function SetMargins($left, $top, $right = null)
@@ -283,9 +284,9 @@ class Fpdf
         $this->AliasNbPages = $alias;
     }
 
-    function Error($msg)
+    function Error(string $msg)
     {
-        //Fatal error
+        // Fatal error
         echo '<b>FPDF error:</b> ' . $msg;
         exit(0);
     }
@@ -1132,7 +1133,7 @@ class Fpdf
         $this->state = 1;
     }
 
-    function _escape($s)
+    function _escape(string $s): string
     {
         //Escape special characters in strings
         $s = str_replace('\\', '\\\\', $s);
@@ -1142,13 +1143,13 @@ class Fpdf
         return $s;
     }
 
-    function _textstring($s)
+    function _textstring(string $s): string
     {
         //Format a text string
         return '(' . $this->_escape($s) . ')';
     }
 
-    function _UTF8toUTF16($s)
+    function _UTF8toUTF16(string $s): string
     {
         //Convert UTF-8 to UTF-16BE with BOM
         $res = "\xFE\xFF";
@@ -1175,7 +1176,7 @@ class Fpdf
         return $res;
     }
 
-    function _dounderline($x, $y, $txt)
+    function _dounderline($x, $y, $txt): string
     {
         //Underline text
         $up = $this->CurrentFont ['up'];
@@ -1184,7 +1185,7 @@ class Fpdf
         return sprintf('%.2F %.2F %.2F %.2F re f', $x * $this->k, ($this->h - ($y - $up / 1000 * $this->FontSize)) * $this->k, $w * $this->k, -$ut / 1000 * $this->FontSizePt);
     }
 
-    function _parsejpg($file)
+    function _parsejpg(string $file): array
     {
         //Extract info from a JPEG file
         $a = GetImageSize($file);
@@ -1208,7 +1209,7 @@ class Fpdf
         return array('w' => $a [0], 'h' => $a [1], 'cs' => $colspace, 'bpc' => $bpc, 'f' => 'DCTDecode', 'data' => $data);
     }
 
-    function _parsepng($file)
+    function _parsepng(string $file): array
     {
         //Extract info from a PNG file
         $f = fopen($file, 'rb');
@@ -1502,8 +1503,8 @@ class Fpdf
                 //Descriptor
                 $this->_newobj();
                 $s = '<</Type /FontDescriptor /FontName /' . $name;
-                foreach ($font ['desc'] as $k => $v)
-                    $s .= ' /' . $k . ' ' . $v;
+                foreach ($font ['desc'] as $kk => $v)
+                    $s .= ' /' . $kk . ' ' . $v;
                 $file = $font ['file'];
                 if ($file)
                     $s .= ' /FontFile' . ($type == 'Type1' ? '' : '2') . ' ' . $this->FontFiles [$file] ['n'] . ' 0 R';
