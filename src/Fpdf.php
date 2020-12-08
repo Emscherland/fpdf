@@ -66,7 +66,7 @@ class Fpdf
     var $author; //author
     var $keywords; //keywords
     var $creator; //creator
-    var string $producer = 'emscherland/fpdf composer package';
+    public string $producer = 'emscherland/fpdf composer package';
 
 
     var $AliasNbPages; //alias for total number of pages
