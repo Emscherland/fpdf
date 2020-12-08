@@ -270,11 +270,12 @@ class Fpdf
         $this->creator = $creator;
     }
 
-    function SetProducer($producer, $isUTF8 = false)
+    public function SetProducer(string $producer, bool $isUTF8 = false)
     {
         //Creator of document
         if ($isUTF8)
             $producer = $this->_UTF8toUTF16($producer);
+
         $this->producer = $producer;
     }
 
