@@ -1,7 +1,8 @@
+<a href="https://github.com/Emscherland/fpdf/actions"><img src="https://github.com/Emscherland/fpdf/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/emscherland/fpdf"><img src="https://img.shields.io/packagist/v/emscherland/fpdf" alt="Latest Stable Version"></a>
+<a href=""><img alt="PHP Version" src="https://img.shields.io/packagist/dependency-v/emscherland/fpdf/php?server=https%3A%2F%2Fpackagist.org&label=PHP"></a>
+<a href="https://packagist.org/packages/emscherland/fpdf"><img src="https://img.shields.io/packagist/l/emscherland/fpdf" alt="License"></a>
 
-[![Latest Stable Version](https://poser.pugx.org/emscherland/fpdf/v)](https://packagist.org/packages/emscherland/fpdf)
-[![License](https://poser.pugx.org/emscherland/fpdf/license)](https://packagist.org/packages/emscherland/fpdf)
-[![PHP Version Require](https://poser.pugx.org/emscherland/fpdf/require/php)](https://packagist.org/packages/emscherland/fpdf)
 
 # FPDF
   
